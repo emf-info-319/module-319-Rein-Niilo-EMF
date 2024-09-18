@@ -1,8 +1,8 @@
-package exercice07;
+package exercices.exercice07;
 
 public class AffectationEtAssignement {
     public static void main(String[] arg){
-        int nbre3 = 2147483647;
+        int nbre = 2147483647;
 
 
         int nbreexemple = 1;
