@@ -20,9 +20,9 @@ public class bruteforce {
         int char_amount = 1;
         int char_place_rotation = 0;
         char[] passwordarray;
-        passwordarray = new char[] {};
-        String test = "";
-        for (;;) {
+        passwordarray = new char[100];
+        String test = ""
+         (;;) {
             char_amount++;
             for (int j = 0; j < char_amount; j++) {
                 for (int i = 0; i < CHARACTERS.length; i++) {
@@ -31,9 +31,9 @@ public class bruteforce {
                 char_place_rotation++;
             }
             test = passwordarray[0];
-            for (int k = 1; k < passwordarray.length; k++)
-                test = test + "" + passwordarray[k];
-            System.out.println(test);
+            //for (int k = 1; k < passwordarray.length; k++
+            //    test = test + "" + passwordarray[k];
+            //System.out.println(test);
         }
 
     }
