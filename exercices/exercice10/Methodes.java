@@ -12,4 +12,7 @@ public class Methodes {
     public static void direbonjour(){
         System.out.println("bonjour");
     }
+    public static void min(){
+        System.out.println();
+    }
 }
