@@ -1,6 +1,4 @@
 package exercices.codagelibre;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.Scanner; // Import the Scanner class
 
 public class revision01 {
@@ -14,8 +12,8 @@ public class revision01 {
         Scanner scanner = new Scanner(System.in); // Create a Scanner object
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                cords[i][j] = 1 + (int) (Math.random() * 2);
-                if (cords[i][j] == 2) {
+                cords[i][j] = 1 + (int) (Math.random() * 3);
+                if (cords[i][j] == 2 | cords[i][j]==3) {
                     cords[i][j] = 0;
                 }
             }
@@ -40,14 +38,20 @@ public class revision01 {
                     y = scanner.nextInt();
 
                     // Validate inputs
-                    if (x >= 0 && x < height && y >= 0 && y < width) {
-                        cords[x][y] = (cords[x][height-y] == 0) ? 1 : 0;
+                    if (y >= 0 && y < height && x >= 0 && x < width) {
+                        cords[y][x] = (cords[y][x] == 0) ? 1 : 0;
                         printcords();
                     } else {
                         System.out.println("Invalid coordinates. Please try again.");
                     }
                     break;
                 case 3:
+                    for (int i = 0; i < height; i++) {
+                        for (int j = 0; j < width; j++) {
+                            cords[i][j] = 0;
+                        }
+                    }
+                    printcords();
                     break;
             }
         }
@@ -55,9 +59,16 @@ public class revision01 {
     }
 
     public static void printcords() {
+        try {
+            Thread.sleep(60); // Pause for 3000 milliseconds (3 seconds)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.print("\033[H\033[2J"); // Move cursor to home and clear screen
+        System.out.flush(); // Ensure output is sent to the terminal immediately
         String printline = "|";
         try {
-            Thread.sleep(10); // Pause for 3000 milliseconds (3 seconds)
+            Thread.sleep(1); // Pause for 3000 milliseconds (3 seconds)
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
