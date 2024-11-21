@@ -5,7 +5,7 @@ import java.util.Scanner; // Import the Scanner class
 
 public class revision01 {
     public static int width = 100;
-    public static int height = 10;
+    public static int height = 15;
     public static int[][] cords = new int[height][width];
     public static int max = 1;
     public static int min = 0;
@@ -20,14 +20,7 @@ public class revision01 {
                 }
             }
         }
-        
         printcords();
-        String line = "¦";
-        for (int i = 0; i != width; i++) {
-            line = line + "" + "¦";
-        }
-        System.out.println(line);
-        System.out.println(line);
         generate();
         int x;
         int y;
@@ -37,8 +30,6 @@ public class revision01 {
                 case 1:
                     réponse = scanner.nextInt(); // Read user input
                     for (int i = 0; i != réponse; i++) {
-                        System.out.println(line);
-                        System.out.println(line);
                         generate();
                     }
                     break;
@@ -56,6 +47,8 @@ public class revision01 {
                         System.out.println("Invalid coordinates. Please try again.");
                     }
                     break;
+                case 3:
+                    break;
             }
         }
 
@@ -63,6 +56,11 @@ public class revision01 {
 
     public static void printcords() {
         String printline = "|";
+        try {
+            Thread.sleep(10); // Pause for 3000 milliseconds (3 seconds)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (cords[i][j] == 1) {
@@ -118,7 +116,11 @@ public class revision01 {
 
             }
         }
-        
+        String line = "¦";
+        for (int i = 0; i != width; i++) {
+            line = line + "" + "¦";
+        }
+        System.out.println(line);
         printcords();
         return cords;
     }
