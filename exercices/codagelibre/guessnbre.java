@@ -54,7 +54,7 @@ public class guessnbre {
                 admincodeused = 1;
             }
             if (réponse == nombre) {
-                System.out.println("vous avez devinez correctement le nombre était " + nombre);
+                System.out.println("vous avez deviné correctement le nombre était " + nombre);
                 break;
             } else if (réponse < nombre) {
                 if (admincodeused == 0) {
