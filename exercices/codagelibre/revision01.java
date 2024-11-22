@@ -10,6 +10,9 @@ public class revision01 {
     public static int min = 0;
 
     public static void main(String[] args) {
+        int wave = 5;
+        int choix2 = 0;
+        boolean choix = false;
         Scanner scanner = new Scanner(System.in); // Create a Scanner object
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
@@ -19,6 +22,7 @@ public class revision01 {
                 }
             }
         }
+        int taille = 0;
         printcords();
         generate();
         int x;
@@ -82,7 +86,37 @@ public class revision01 {
                     printcords(); // Print the grid to show the result
                     break;
                 case 8:
-                    generateRipple(10);
+                    System.out.println("Enter X coordinate (0 to " + (width - 1) + "):");
+                    x = scanner.nextInt();
+                    System.out.println("Enter Y coordinate (0 to " + (height - 1) + "):");
+                    y = scanner.nextInt();
+                    System.out.println("entrez la taille souhaité");
+                    taille = scanner.nextInt();
+                    System.out.println("voulez vous le remplir ou pas? 1 oui 0 non.");
+                    choix2 = scanner.nextInt();
+                    if (choix2 == 1) {
+                        choix = true;
+                    } else {
+                        choix = false;
+                    }
+                    for (int i = taille; i > 0; i--) {
+                        generateRipple(taille - i, x, y);
+                        if (!choix) {
+                            ungenerateRipple(taille - i - 1, x, y);
+                        }
+                    }
+                    break;
+                case 9:
+                    rain();
+                    break;
+                case 10:
+                    System.out.println("Enter X coordinate (0 to " + (width - 1) + "):");
+                    x = scanner.nextInt();
+                    System.out.println("Enter Y coordinate (0 to " + (height - 1) + "):");
+                    y = scanner.nextInt();
+                    System.out.println("entrez la taille souhaité");
+                    taille = scanner.nextInt();
+                    generateTriangle(taille,x,y);
                     break;
 
             }
@@ -106,13 +140,13 @@ public class revision01 {
                 if (cords[i][j] == 1) {
                     printline += " ■"; // Alive cell
                 } else if (cords[i][j] == 0) {
-                    printline += " _"; // Dead cell
+                    printline += "  "; // Dead cell
                 }
             }
             System.out.println(printline); // Print the row
         }
         try {
-            Thread.sleep(30); // Pause for 50 milliseconds
+            Thread.sleep(15); // Pause for 50 milliseconds
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -222,20 +256,21 @@ public class revision01 {
     }
 
     public static void generateRipple(int wave, int x, int y) {
-       // For each "wave" level, create a ring of affected cells
-    for (int i = -wave; i <= wave; i++) {
-        for (int j = -wave; j <= wave; j++) {
-            // This makes sure to create a ring shape (Manhattan distance = wave)
-            if (Math.abs(i) + Math.abs(j) == wave) {
-                // Ensure the coordinates are within bounds
-                if (y + i >= 0 && y + i < height && x + j >= 0 && x + j < width) {
-                    cords[y + i][x + j] = 1; // Mark this cell as affected by the ripple
+        // For each "wave" level, create a ring of affected cells
+        for (int i = -wave; i <= wave; i++) {
+            for (int j = -wave; j <= wave; j++) {
+                // This makes sure to create a ring shape (Manhattan distance = wave)
+                if (Math.abs(i) + Math.abs(j) == wave) {
+                    // Ensure the coordinates are within bounds
+                    if (y + i >= 0 && y + i < height && x + j >= 0 && x + j < width) {
+                        cords[y + i][x + j] = 1; // Mark this cell as affected by the ripple
+                    }
                 }
             }
         }
+        printcords(); // Print the grid after the current ripple expansion
     }
-    printcords(); // Print the grid after the current ripple expansion
-    }
+
     public static void createRippleEffect(int x, int y, int maxWave) {
         // Create the initial ripple (the droplet impact at (x, y))
         cords[y][x] = 1;
@@ -243,9 +278,80 @@ public class revision01 {
         // Gradually expand the ripple over time
         for (int wave = 1; wave <= maxWave; wave++) {
             // Expand the ripple by increasing the wave size
-            expandRipple(x, y, wave);
+            generateRipple(wave, x, y);
             try {
                 Thread.sleep(50); // Pause between each ripple expansion (for effect)
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void ungenerateRipple(int wave, int x, int y) {
+        // For each "wave" level, create a ring of affected cells
+        for (int i = -wave; i <= wave; i++) {
+            for (int j = -wave; j <= wave; j++) {
+                // This makes sure to create a ring shape (Manhattan distance = wave)
+                if (Math.abs(i) + Math.abs(j) == wave) {
+                    // Ensure the coordinates are within bounds
+                    if (y + i >= 0 && y + i < height && x + j >= 0 && x + j < width) {
+                        cords[y + i][x + j] = 0; // Mark this cell as affected by the ripple
+                    }
+                }
+            }
+        }
+        printcords(); // Print the grid after the current ripple expansion
+    }
+
+    public static void uncreateRippleEffect(int x, int y, int maxWave) {
+        // Create the initial ripple (the droplet impact at (x, y))
+        cords[y][x] = 0;
+        printcords(); // Print after initial impact
+        // Gradually expand the ripple over time
+        for (int wave = 1; wave <= maxWave; wave++) {
+            // Expand the ripple by increasing the wave size
+            ungenerateRipple(wave, x, y);
+            try {
+                Thread.sleep(50); // Pause between each ripple expansion (for effect)
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void rain() {
+        int x = 0 + (int) (Math.random() * ((width | 0)));
+        int y = 0 + (int) (Math.random() * ((height | min)));
+        int wave = 0 + (int) (Math.random() * ((5 | 0)));
+        for (int j = 0; j < 20; j++) {
+            wave = 5 + (int) (Math.random() * ((20 | 5)));
+            y = 0 + (int) (Math.random() * ((height | min)));
+            x = 0 + (int) (Math.random() * ((width | 0)));
+            for (int i = wave; i > 0; i--) {
+                generateRipple(wave - i, x, y);
+                ungenerateRipple(wave - i - 1, x, y);
+            }
+        }
+    }
+
+    public static void generateTriangle(int baseWidth, int x, int y) {
+        // Calculate the triangle height from the base width
+        int heightTriangle = (baseWidth + 1) / 2;
+
+        // Loop to create the triangle rows
+        for (int i = 0; i < heightTriangle; i++) {
+            int rowWidth = 2 * i + 1; // Row width increases by 2 each time
+            int startX = x - i; // Center-align the triangle
+
+            for (int j = 0; j < rowWidth; j++) {
+                int currentX = startX + j;
+                if (currentX >= 0 && currentX < width && y - i >= 0 && y - i < height) {
+                    cords[y - i][currentX] = 1; // Set the cell to alive
+                }
+            }
+            printcords(); // Print the grid after updating each row
+            try {
+                Thread.sleep(100); // Pause for visualization effect
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
