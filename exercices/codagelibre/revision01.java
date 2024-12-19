@@ -3,11 +3,11 @@ package exercices.codagelibre;
 import java.util.Scanner; // Import the Scanner class
 
 public class revision01 {
-    public static int width = 100;
-    public static int height = 50;
+    public static final int width = 100;
+    public static final int height = 50;
     public static int[][] cords = new int[height][width];
-    public static int max = 1;
-    public static int min = 0;
+    public static final int max = 1;
+    public static final int min = 0;
 
     public static void main(String[] args) {
         int wave = 5;
@@ -323,6 +323,7 @@ public class revision01 {
     }
 
     public static void maze(){
-        int playery = 
+        int playery =  0 + (int) (Math.random() * ((height | min)));
+        int playerx =  0 + (int) (Math.random() * ((width | min)));
     }
 }
