@@ -82,8 +82,7 @@ public class revision01 {
                     printcords();
                     break;
                 case 7:
-                    addGliderGun(width / 2, height / 2 - 20); // Add the Glider Gun to the grid
-                    printcords(); // Print the grid to show the result
+
                     break;
                 case 8:
                     System.out.println("Enter X coordinate (0 to " + (width - 1) + "):");
@@ -141,6 +140,10 @@ public class revision01 {
                     printline += " ■"; // Alive cell
                 } else if (cords[i][j] == 0) {
                     printline += "  "; // Dead cell
+                } else if (cords[i][j] == 2){
+                    printline += " !";
+                } else if (cords[i][j]== 3){
+                    printline += " @";
                 }
             }
             System.out.println(printline); // Print the row
@@ -213,45 +216,6 @@ public class revision01 {
             cords[startY + 2][startX + 2] = 1; // Bottom-right
         } else {
             System.out.println("Invalid coordinates for glider. Ensure it fits within the grid.");
-        }
-    }
-
-    public static void addGliderGun(int startX, int startY) {
-        // This is a pattern for the famous Glider Gun, which creates gliders over time.
-        // The Glider Gun works by producing gliders periodically and launching them.
-
-        // Ensure it fits within the grid
-        if (startX >= 0 && startX + 18 < width && startY >= 0 && startY + 9 < height) {
-            // Gun Pattern (it generates a glider every 30 generations)
-            cords[startY + 1][startX + 5] = 1;
-            cords[startY + 1][startX + 6] = 1;
-            cords[startY + 2][startX + 5] = 1;
-            cords[startY + 2][startX + 6] = 1;
-
-            cords[startY + 11][startX + 5] = 1;
-            cords[startY + 11][startX + 6] = 1;
-            cords[startY + 12][startX + 5] = 1;
-            cords[startY + 12][startX + 6] = 1;
-
-            cords[startY + 13][startX + 3] = 1;
-            cords[startY + 13][startX + 4] = 1;
-            cords[startY + 14][startX + 3] = 1;
-            cords[startY + 14][startX + 4] = 1;
-
-            cords[startY + 15][startX + 1] = 1;
-            cords[startY + 15][startX + 2] = 1;
-            cords[startY + 16][startX + 1] = 1;
-            cords[startY + 16][startX + 2] = 1;
-
-            cords[startY + 15][startX + 7] = 1;
-            cords[startY + 15][startX + 8] = 1;
-            cords[startY + 16][startX + 7] = 1;
-            cords[startY + 16][startX + 8] = 1;
-
-            cords[startY + 17][startX + 5] = 1;
-            cords[startY + 18][startX + 5] = 1;
-        } else {
-            System.out.println("Invalid coordinates for Glider Gun. Ensure it fits within the grid.");
         }
     }
 
@@ -356,5 +320,9 @@ public class revision01 {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void maze(){
+        int playery = 
     }
 }
